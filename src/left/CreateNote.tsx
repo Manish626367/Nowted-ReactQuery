@@ -1,0 +1,51 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { Box, Button, Typography } from "@mui/material";
+import { createNote } from "@/API/api";
+
+function CreateNote() {
+  const searchParams = useSearchParams();
+  const folderId = searchParams.get("folderId");
+
+
+  const mutation = useMutation({
+    mutationFn: () => createNote(folderId),
+    onSuccess: () => {
+      alert("Successfully created note!");
+    },
+    onError: (error) => {
+      console.error("Error creating note:", error);
+    },
+  });
+
+  return (
+    <Box px={1} sx={{ cursor: "pointer" }}>
+      <Button
+        variant="contained"
+        fullWidth
+        sx={{
+          height: "44px", 
+          fontSize: "1.025rem",
+          fontWeight: "600",
+          backgroundColor: "#1E293B", 
+          color: "#fff",
+          borderRadius: "4px", 
+          "&:hover": {
+            backgroundColor: "#F1F5F9", 
+            color: "#000",
+          },
+        }}
+        onClick={() => mutation.mutate()}
+      >
+        <Typography variant="h5" component="span" pr={'4px'}>
+          +
+        </Typography>
+        New Note
+      </Button>
+    </Box>
+  );
+}
+
+export default CreateNote;
