@@ -1,10 +1,10 @@
-import { Box } from '@mui/material';
+// import { Box } from '@mui/material';
 import React from 'react'
 
 function FolderNotePage() {
     return (
         <>
-          <Box
+          {/* <Box
             width="25%"
             bgcolor="#1c1c1c"
             height="100vh"
@@ -18,7 +18,8 @@ function FolderNotePage() {
           >
             folder Note page
           </Box>
-          <Box>Show NOte page</Box>
+          <Box>Show NOte page</Box> */}
+          show notes
         </>
       );
 }

@@ -1,19 +1,24 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Box, Button, Typography } from "@mui/material";
 import { createNote } from "@/API/api";
 
 function CreateNote() {
-  const searchParams = useSearchParams();
-  const folderId = searchParams.get("folderId");
+  // const searchParams = useSearchParams();
+  // const folderId = searchParams.get("folderId");
+  const { folderId } = useParams<{ folderId: string | string[] | undefined }>();
 
+
+  const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: () => createNote(folderId),
     onSuccess: () => {
       alert("Successfully created note!");
+      queryClient.invalidateQueries(["notes", folderId]);
+      
     },
     onError: (error) => {
       console.error("Error creating note:", error);

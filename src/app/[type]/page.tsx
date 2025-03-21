@@ -1,10 +1,11 @@
-import { Box } from "@mui/material";
+// import MiddlePannel from "@/middle/MiddlePannel";
+// import { Box } from "@mui/material";
 import React from "react";
 
 function MiddlePage() {
   return (
     <>
-      <Box
+      {/* <Box
         width="25%"
         bgcolor="#1c1c1c"
         height="100vh"
@@ -16,9 +17,10 @@ function MiddlePage() {
           "&::-webkit-scrollbar": { display: "none" },
         }}
       >
-        combined Notes
+       <MiddlePannel/>
       </Box>
-      <Box>default page</Box>
+      <Box>default page</Box> */}
+      select notes
     </>
   );
 }

@@ -70,12 +70,82 @@
 //----------------------------------------------------------
 
 
+
+
+
+
+
+// "use client";
+
+// // import type { Metadata } from "next";
+// import { Geist, Geist_Mono } from "next/font/google";
+// import "./globals.css";
+// import LeftPannel from "@/left/LeftPannel";
+// import { Box } from "@mui/material";
+
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { useState } from "react";
+
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
+
+// export default function RootLayout({
+//   children,
+// }: Readonly<{
+//   children: React.ReactNode;
+// }>) {
+//   const [queryClient] = useState(() => new QueryClient());
+
+//   return (
+//     <html lang="en">
+//       <body
+//         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+//       >
+      
+//         <QueryClientProvider client={queryClient}>
+//           <Box display="flex" width="100%" height="100vh" border="none">
+//             <Box width="21.4%" height="100vh">
+//               <LeftPannel />
+//             </Box>
+
+//             {children}
+//           </Box>
+//         </QueryClientProvider>
+//       </body>
+//     </html>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//---------------------------------------------------------------
+
+
+
+
 "use client";
 
-// import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import LeftPannel from "@/left/LeftPannel";
+import MiddlePannel from "@/middle/MiddlePannel"; 
 import { Box } from "@mui/material";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -91,26 +161,40 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <QueryClientProvider client={queryClient}>
-          <Box display="flex" width="100%" height="100vh" border="none">
+          <Box display="flex" width="100%" height="100vh">
+            
+            {/* Left Panel */}
             <Box width="21.4%" height="100vh">
               <LeftPannel />
             </Box>
 
-            {children}
+            {/* Middle Panel */}
+            <Box
+              width="25%"
+              bgcolor="#1c1c1c"
+              height="100vh"
+              px={2}
+              py={2}
+              sx={{
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": { display: "none" },
+              }}
+            >
+              <MiddlePannel />
+            </Box>
+
+            {/* Main Content Area - Uses Remaining Space */}
+            <Box flexGrow={1} bgcolor="#000000">
+              {children}
+            </Box>
           </Box>
         </QueryClientProvider>
       </body>
