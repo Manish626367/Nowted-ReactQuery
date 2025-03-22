@@ -98,7 +98,7 @@ export const fetchNotes = async () => {
   };
   
   // Delete Note
-  export const deleteNote = async (noteId) => {
+  export const deleteNote = async (noteId:string | string[]) => {
     try {
       await axios.delete(`${BASE_URL}/notes/${noteId}`);
     } catch (error) {

@@ -1,5 +1,6 @@
 // import MiddlePannel from '@/middle/MiddlePannel';
 // import { Box } from '@mui/material';
+import SelectNoteCompo from '@/right/SelectNoteCompo';
 import React from 'react'
 
 function FolderPage() {
@@ -22,7 +23,7 @@ console.log("folder ka data ");
            <MiddlePannel/>
           </Box>
           <Box>default page</Box> */}
-           select note page
+          <SelectNoteCompo/>
         </>
       );
 }

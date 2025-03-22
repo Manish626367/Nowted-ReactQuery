@@ -143,7 +143,8 @@
 "use client";
 
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+// import "./globals.css";
+import "./globals.css"
 import LeftPannel from "@/left/LeftPannel";
 import MiddlePannel from "@/middle/MiddlePannel"; 
 import { Box } from "@mui/material";
@@ -192,7 +193,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Box>
 
             {/* Main Content Area - Uses Remaining Space */}
-            <Box flexGrow={1} bgcolor="#000000">
+            <Box  flexGrow={1}
+              width="53.6%"
+              height="100vh"
+              bgcolor="#000000"
+              sx={{
+                overflowY: "auto",
+                scrollbarWidth: "none",
+                "&::-webkit-scrollbar": { display: "none" },
+              }}>
               {children}
             </Box>
           </Box>

@@ -21,7 +21,7 @@ const noteType = getNoteType(pathname);
 
     // Handle home route properly
     if (!folderId && !noteType) {
-      return <Typography variant='h5' align="center">Welcome to Nowted! Select a folder to view notes.</Typography>
+      return <Typography variant='h6' align="center">No Folder selected</Typography>
   }
  
  return (

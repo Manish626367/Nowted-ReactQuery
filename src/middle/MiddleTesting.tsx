@@ -212,6 +212,7 @@ const fetchNotes = async (
   }
 
   const response = await axios.get(url);
+  
   return response.data.notes;
 };
 
@@ -242,17 +243,11 @@ function MiddleTesting({ type }: CombinedNotesProps) {
       lastPage.length < LIMIT ? undefined : allPages.length + 1,
   });
 
-  if (!type && !folderId) {
-    return (
-      <Typography variant="h5" align="center">
-        Welcome to Nowted! Select a folder or category to view notes.
-      </Typography>
-    );
-  }
+
 
   return (
     <>
-      <Typography variant="h4" sx={{ padding: "20px 16px" }}>
+      <Typography variant="h5" sx={{ padding: "20px 16px 0px",  fontWeight:"600"}}>
         {isLoading
           ? "Loading..."
           : folder?.name || (type ? type.charAt(0).toUpperCase() + type.slice(1) : "Folder not found")}

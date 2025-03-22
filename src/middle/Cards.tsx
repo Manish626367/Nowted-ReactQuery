@@ -20,18 +20,21 @@ const Cards = memo(function Card({ title, text, lastdate, id, folderId, type }: 
     <Link key={id} href={linkHref} style={{ textDecoration: "none" }}>
       <MuiCard
         sx={{
-          backgroundColor: "#1E293B",
-          padding: 2,
-          borderRadius: 2,
-          boxShadow: 3,
+          backgroundColor: "#1e1e1e",
+          borderRadius: "12px",
+          boxShadow: "0 4px 15px rgba(0, 0, 0, 0.5)",
           color: "#FFFFFF",
           cursor: "pointer",
-          transition: "background 0.3s",
-          '&:hover': { backgroundColor: "#2D3748" },
+          transition: "transform 0.2s, background 0.3s",
+          padding: 1,
+          '&:hover': { 
+            backgroundColor: "#2c2c2c", 
+            transform: "scale(1.02)" 
+          },
         }}
       >
         <CardContent>
-          <Typography variant="h6" component="p" fontWeight="600">
+          <Typography variant="subtitle1" component="p" fontWeight="600">
             {title}
           </Typography>
 
