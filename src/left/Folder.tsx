@@ -157,7 +157,7 @@
 "use client";
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { usePathname } from "next/navigation"; // Import usePathname
+import { useParams } from "next/navigation"; // Import usePathname
 import { Box, Typography, IconButton, CircularProgress } from "@mui/material";
 import deleteIcon from "../images/trash.svg";
 import EditFolderName from "./EditFolderName";
@@ -168,6 +168,7 @@ import openFolderIcon from "../images/folder_open.svg";
 import closeFolderIcon from "../images/folder_closed_Icon.svg";
 import Link from "next/link";
 
+
 interface FolderDataType {
   id: string;
   name: string;
@@ -175,7 +176,7 @@ interface FolderDataType {
 
 function Folder() {
   const queryClient = useQueryClient();
-  const pathname = usePathname(); // Get the current pathname
+  const {folderId} = useParams();
 
   const {
     data: fetchedData = [],
@@ -234,7 +235,7 @@ function Folder() {
 
       <Box>
         {fetchedData.map((d: FolderDataType) => {
-          const isActive = pathname === `/folder/${d.id}`; // Check if the folder is active
+        const isActive = d.id === folderId
           return (
             <Box
               key={d.id}

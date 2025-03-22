@@ -21,32 +21,33 @@ import Image from "next/image";
 import dateIcon from "../images/DateIcon.svg";
 import closedFolderIcon from "../images/folder_closed_Icon.svg";
 import { useRouter } from "next/navigation";
+import { fetchNote } from "@/API/api";
 
-interface Note {
-  id: string;
-  title: string;
-  content: string;
-  createdAt: string;
-  deletedAt: string | null;
-  folder: {
-    id: string;
-    name: string;
-  };
-}
+// interface Note {
+//   id: string;
+//   title: string;
+//   content: string;
+//   createdAt: string;
+//   deletedAt: string | null;
+//   folder: {
+//     id: string;
+//     name: string;
+//   };
+// }
 
 interface Folder {
   id: string;
   name: string;
 }
 
-const fetchNote = async (
-  noteId: string | string[] | undefined
-): Promise<Note> => {
-  const response = await axios.get(
-    `https://nowted-server.remotestate.com/notes/${noteId}`
-  );
-  return response.data.note;
-};
+// const fetchNote = async (
+//   noteId: string | string[] | undefined
+// ): Promise<Note> => {
+//   const response = await axios.get(
+//     `https://nowted-server.remotestate.com/notes/${noteId}`
+//   );
+//   return response.data.note;
+// };
 
 const fetchFolders = async (): Promise<Folder[]> => {
   const response = await axios.get(

@@ -175,7 +175,7 @@ const StyledButton = styled(Button)(({ theme }) => ({
 
 const StyledBox = styled(Box)({
   width: "100%",
-  color: "#94A3B8",
+  color: "#1c1c1c",
   fontWeight: 600,
   padding:"0px 10px"
 //   gap: "6px",
@@ -225,7 +225,7 @@ function More() {
           }}
         >
           <Image src={archivedIcon} alt="Archived Notes" width={21} height={21} />
-          Archived Notes
+             Archived Notes
         </StyledButton>
       </Link>
     </StyledBox>

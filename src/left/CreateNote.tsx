@@ -85,15 +85,14 @@ import { Box, Button, Typography } from "@mui/material";
 import { createNote } from "@/API/api";
 
 function CreateNote() {
-  // const searchParams = useSearchParams();
-  // const folderId = searchParams.get("folderId");
+
   const { folderId } = useParams<{ folderId: string | string[] | undefined }>();
 
 
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: () => createNote(folderId),
+    mutationFn: (folderId: string | string[]|undefined) => createNote(folderId),
     onSuccess: () => {
       alert("Successfully created note!");
       // queryClient.invalidateQueries({queryKey:["notes", folderId]});
@@ -113,8 +112,7 @@ function CreateNote() {
         sx={{
           height: "44px", 
           fontSize: "1.025rem",
-          fontWeight: "600",
-          // backgroundColor: "#1E293B", 
+          fontWeight: "600", 
           backgroundColor:"#1c1c1c",
           color: "#fff",
           borderRadius: "4px", 
@@ -123,7 +121,7 @@ function CreateNote() {
             color: "#000",
           },
         }}
-        onClick={() => mutation.mutate()}
+        onClick={() => mutation.mutate(folderId)}
       >
         <Typography variant="h5" component="span" pr={'4px'}>
           +

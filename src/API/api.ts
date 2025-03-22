@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const BASE_URL = "https://nowted-server.remotestate.com";
 
 // Folder APIs
@@ -23,7 +24,7 @@ export const deleteFolder = async (folderId:string) => {
     }
 };
 
-export const addNewFolder = async (folderName) => {
+export const addNewFolder = async (folderName:string) => {
     try {
         await axios.post(`${BASE_URL}/folders`, { name: folderName });
         return true;
@@ -33,7 +34,7 @@ export const addNewFolder = async (folderName) => {
     }
 };
 
-export const editFolderName = async (folderId, newName) => {
+export const editFolderName = async (folderId:string, newName:string) => {
     try {
         await axios.patch(`${BASE_URL}/folders/${folderId}`, { name: newName });
         return true;
@@ -44,7 +45,10 @@ export const editFolderName = async (folderId, newName) => {
 };
 
 // Note APIs
-export const createNote = async (folderId) => {
+export const createNote = async (folderId:string | string[] | undefined) => {
+  if (!folderId) {
+    throw new Error("Folder ID is required");
+   }
     try {
         await axios.post(`${BASE_URL}/notes`, {
             folderId,
@@ -87,16 +91,49 @@ export const fetchNotes = async () => {
   };
   
   // Fetch Single Note Details
-  export const fetchNoteDetails = async (noteId) => {
-    try {
-      const response = await axios.get(`${BASE_URL}/notes/${noteId}`);
-      return response.data.note;
-    } catch (error) {
-      console.error("Error fetching note details:", error);
-      throw error;
-    }
+  // export const fetchNoteDetails = async (noteId) => {
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/notes/${noteId}`);
+  //     return response.data.note;
+  //   } catch (error) {
+  //     console.error("Error fetching note details:", error);
+  //     throw error;
+  //   }
+  // };
+
+
+
+
+
+  //------ fetching a particular note ------------
+
+
+  interface Note {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    deletedAt: string | null;
+    folder: {
+      id: string;
+      name: string;
+    };
+  }
+  
+  export const fetchNote = async (
+    noteId: string | string[] | undefined
+  ): Promise<Note> => {
+    const response = await axios.get(
+      `https://nowted-server.remotestate.com/notes/${noteId}`
+    );
+    return response.data.note;
   };
   
+
+
+//--------------------------------------------------------------------------------
+
+
   // Delete Note
   export const deleteNote = async (noteId:string | string[]) => {
     try {
@@ -107,24 +144,24 @@ export const fetchNotes = async () => {
     }
   };
   
-  // Update Note Status (Favorite/Archive)
-  export const updateNoteStatus = async (noteId, type, status) => {
-    try {
-      const payload =
-        type === "Favorite" ? { isFavorite: status } : { isArchived: status };
+  // // Update Note Status (Favorite/Archive)
+  // export const updateNoteStatus = async (noteId, type, status) => {
+  //   try {
+  //     const payload =
+  //       type === "Favorite" ? { isFavorite: status } : { isArchived: status };
   
-      const response = await axios.patch(
-        `${BASE_URL}/notes/${noteId}`,
-        payload,
-        { headers: { "Content-Type": "application/json" } }
-      );
+  //     const response = await axios.patch(
+  //       `${BASE_URL}/notes/${noteId}`,
+  //       payload,
+  //       { headers: { "Content-Type": "application/json" } }
+  //     );
   
-      return response.data;
-    } catch (error) {
-      console.error(`Error updating ${type}:`, error);
-      throw error;
-    }
-  };
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error(`Error updating ${type}:`, error);
+  //     throw error;
+  //   }
+  // };
   
 
 
@@ -138,7 +175,7 @@ export const fetchNotes = async () => {
     title: string;
     preview: string;
     updatedAt: string;
-    folder: { name: string };
+    
   }
   
   interface NotesResponse {

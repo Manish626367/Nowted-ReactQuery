@@ -87,7 +87,7 @@ function EditNote({ id, name, onSave }: EditNoteProps) {
 
   const mutation = useMutation({
     mutationFn: async (newTitle: string) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); 
+      await new Promise((resolve) => setTimeout(resolve, 2000)); 
       await onSave(id, newTitle);
     },
     onSuccess: () => {
