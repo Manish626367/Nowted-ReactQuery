@@ -6,8 +6,8 @@ import SearchImg from "../images/search.png";
 import { useState } from "react";
 import NowtedImg from "../images/Group 1.svg"
 import CreateNote from "./CreateNote";
-// import CreateNote from "./CreateNote";
 import SearchNote from "../left/SearchNote"
+import CloseIcon from "@mui/icons-material/Close";
 
 function LogoSearch() {
   const [isSearch, setIsSearch] = useState(false);
@@ -22,14 +22,15 @@ function LogoSearch() {
         </Box>
 
         <IconButton onClick={() => setIsSearch((prev) => !prev)}>
-          <Image src={SearchImg} alt="Search icon" width={21} height={21} />
+          {
+            !isSearch ?  <Image src={SearchImg} alt="Search icon" width={21} height={21} /> : <CloseIcon sx={{color:"white"}}/>
+          }
         </IconButton>
       </Box>
 
       {/* Conditional Rendering for Search or CreateNote */}
 
       <Box px={2}>{isSearch ? <SearchNote /> : <CreateNote />}</Box>
-      {/* <CreateNote/> */}
     </Box>
   );
 }

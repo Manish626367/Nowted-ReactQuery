@@ -1,36 +1,36 @@
-import React from 'react'
-// import ShowCombineNotes from './ShowCombineNotes'
-// import ShowFolderNotes from './ShowFolderNotes'
-import { useParams, usePathname } from 'next/navigation'
-import { Typography } from '@mui/material'
-import MiddleTesting from './MiddleTesting'
-// import { Typography } from '@mui/material'
+import React from "react";
+import { useParams, usePathname } from "next/navigation";
+import { Typography } from "@mui/material";
+import MiddleTesting from "./MiddleTesting";
 
 function MiddlePannel() {
- const{folderId} =useParams()
- 
- const pathname = usePathname();
- const getNoteType = (pathname: string): "Archived" | "favorites" | "Deleted" | null => {
-  if (pathname.includes("Archived")) return "Archived";
-  if (pathname.includes("favorites")) return "favorites";
-  if (pathname.includes("Deleted")) return "Deleted";
-  return null;
-};
+  const { folderId } = useParams();
+  const pathname = usePathname();
 
-const noteType = getNoteType(pathname);
+  const getNoteType = (
+    pathname: string
+  ): "Archived" | "favorites" | "Deleted" | null => {
+    if (pathname.includes("Archived")) return "Archived";
+    if (pathname.includes("favorites")) return "favorites";
+    if (pathname.includes("Deleted")) return "Deleted";
+    return null;
+  };
 
-    // Handle home route properly
-    if (!folderId && !noteType) {
-      return <Typography variant='h6' align="center">No Folder selected</Typography>
+  const noteType = getNoteType(pathname);
+
+  if (!folderId && !noteType) {
+    return (
+      <Typography variant="h6" align="center">
+        No Folder selected
+      </Typography>
+    );
   }
- 
- return (
+
+  return (
     <div>
-      {/* <ShowFolderNotes/> */}
-       {/* {folderId?<ShowFolderNotes/>:<ShowCombineNotes type={noteType}/>} */}
-        <MiddleTesting type={noteType}/>
+      <MiddleTesting type={noteType} />
     </div>
-  )
+  );
 }
 
-export default MiddlePannel
+export default MiddlePannel;

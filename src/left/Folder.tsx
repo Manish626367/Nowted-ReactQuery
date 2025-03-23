@@ -224,7 +224,8 @@ function Folder() {
       <Box display="flex" justifyContent="space-between" px={2}>
         <Typography
           variant="subtitle1"
-          style={{ color: "#F1F5F9", padding: "3px 0px " }}
+          style={{  padding: "3px 0px " }}
+          color= "rgba(255, 255, 255, 0.6)" fontWeight={550}
         >
           Folders
         </Typography>
@@ -256,7 +257,7 @@ function Folder() {
                   alignItems="center"
                   sx={{ cursor: "pointer" }}
                 >
-                  {isActive ? ( // Use isActive to determine the folder icon
+                  {isActive ? ( 
                     <Image src={openFolderIcon} alt="Open Folder" />
                   ) : (
                     <Image src={closeFolderIcon} alt="Closed Folder" />
@@ -280,7 +281,10 @@ function Folder() {
               </Link>
 
               <IconButton
-                color="error"
+                sx={{
+                  filter: !isActive ?'invert(40%) sepia(0%) saturate(9000%)':""
+                }}
+                
                 onClick={() => deleteFolderMutation.mutate(d.id)}
               >
                 <Image src={deleteIcon} alt="deleteIcon" />

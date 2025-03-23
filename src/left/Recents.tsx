@@ -1,11 +1,12 @@
 "use client";
 
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography, CircularProgress, IconButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getRecentNotes } from "../API/api";
 import Image from "next/image";
 import Link from "next/link";
 import Documenticon from "../images/Document.svg";
+import { usePathname } from "next/navigation";
 
 interface DataType {
   id: string;
@@ -17,14 +18,18 @@ interface DataType {
 }
 
 function Resents() {
+
+  const pathname = usePathname();
+  const noteId = pathname.split("/").pop();
+
   const { data: fetchedData = [], isLoading, isError, error } = useQuery({
     queryKey: ["recentNotes"],
     queryFn: getRecentNotes,
   });
 
   return (
-    <Box sx={{ width: "100%", color: "#94A3B8", fontWeight: 600, p: 1 }}>
-      <Typography variant="subtitle1" sx={{ color: "#F1F5F9", px: 2, pb: 1 }}>
+    <Box sx={{ width: "100%", pl: 1 }}>
+      <Typography variant="subtitle1" fontWeight={550} sx={{  color: "rgba(255, 255, 255, 0.6)", px: 2, pb: 0 }}>
         Recents
       </Typography>
 
@@ -43,21 +48,31 @@ function Resents() {
             href={`/folder/${d.folder.id}/note/${d.id}`}
             key={d.id}
             passHref
-            style={{ outline: "none", textDecoration: "none" }}
+            style={{ outline: "none", textDecoration: "none" ,  color: "rgba(255, 255, 255, 0.6)",}}
           >
             <Box
               sx={{
+                    
                 display: "flex",
-                gap: 2,
+                gap: 1,
                 py: 1,
-                px: 2,
+                px: 1,
                 cursor: "pointer",
-                "&:hover": { backgroundColor: "#1E293B" },
-                "&.active": { backgroundColor: "#1D4ED8", color: "#fff" },
+                borderRadius:"3px",
+                backgroundColor:noteId === d.id ? "rgba(255, 255, 255, 0.2)" : "",
+                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" },
+                // "&.active": { backgroundColor: "#1D4ED8", color: "#fff" },
               }}
             >
-              <Image src={Documenticon} alt="Document Icon" width={20} height={20} />
-              <Typography color="white">{d.title}</Typography>
+              {/* <Image src={Documenticon} alt="Document Icon" width={20} height={20} /> */}
+              <IconButton
+                sx={{
+                  filter: noteId === d.id ?"" :'invert(40%) sepia(0%) saturate(9000%)'
+                }}
+                >
+                  <Image src={Documenticon} alt="Document Icon" width={20} height={20} />
+                </IconButton>
+              <Typography   pt={1} fontWeight={550}>{d.title}</Typography>
             </Box>
           </Link>
         ))}

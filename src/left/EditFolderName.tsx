@@ -56,7 +56,8 @@ const EditFolderName: React.FC<EditFolderNameType> = ({ id, name, setFetchedData
   ) : (
     <Typography
       onDoubleClick={() => setIsEditing(true)}
-      sx={{ cursor: "pointer", color: "white" }}
+      sx={{ cursor: "pointer", }}
+      color= "rgba(255, 255, 255, 0.6)" fontWeight={550}
     >
       {name}
     </Typography>

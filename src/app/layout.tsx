@@ -143,7 +143,6 @@
 "use client";
 
 import { Geist, Geist_Mono } from "next/font/google";
-// import "./globals.css";
 import "./globals.css"
 import LeftPannel from "@/left/LeftPannel";
 import MiddlePannel from "@/middle/MiddlePannel"; 
@@ -171,12 +170,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryClientProvider client={queryClient}>
           <Box display="flex" width="100%" height="100vh">
             
-            {/* Left Panel */}
+            {/* --------------Left Panel-------------- */}
             <Box width="21.4%" height="100vh">
               <LeftPannel />
             </Box>
 
-            {/* Middle Panel */}
+            {/*-------------- Middle Panel------------- */}
             <Box
               width="25%"
               bgcolor="#1c1c1c"

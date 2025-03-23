@@ -3,7 +3,11 @@ import axios from "axios";
 
 const BASE_URL = "https://nowted-server.remotestate.com";
 
-// Folder APIs
+
+//--------------------------------------------------------------------
+                 // folders Api //
+
+
 export const getFolders = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/folders`);
@@ -13,6 +17,11 @@ export const getFolders = async () => {
         return [];
     }
 };
+
+
+//-----------------------------------------------------------
+
+
 
 export const deleteFolder = async (folderId:string) => {
     try {
@@ -24,6 +33,11 @@ export const deleteFolder = async (folderId:string) => {
     }
 };
 
+
+//----------------------------------------------------------------------
+
+
+
 export const addNewFolder = async (folderName:string) => {
     try {
         await axios.post(`${BASE_URL}/folders`, { name: folderName });
@@ -33,6 +47,11 @@ export const addNewFolder = async (folderName:string) => {
         return false;
     }
 };
+
+
+//-----------------------------------------------------------------------------
+
+
 
 export const editFolderName = async (folderId:string, newName:string) => {
     try {
@@ -44,7 +63,14 @@ export const editFolderName = async (folderId:string, newName:string) => {
     }
 };
 
-// Note APIs
+
+//---------------------------------------------------------------------------
+//---------------------------------------------------------------------------
+
+                          // Note APIs //
+
+
+
 export const createNote = async (folderId:string | string[] | undefined) => {
   if (!folderId) {
     throw new Error("Folder ID is required");
@@ -64,6 +90,11 @@ export const createNote = async (folderId:string | string[] | undefined) => {
     }
 };
 
+
+//-----------------------------------------------------------------------
+
+
+
 export const getRecentNotes = async () => {
     try {
         const response = await axios.get(`${BASE_URL}/notes/recent`);
@@ -73,6 +104,10 @@ export const getRecentNotes = async () => {
         return [];
     }
 };
+
+
+//-----------------------------------------------------------------------------
+
 
 
 export const fetchNotes = async () => {
@@ -89,6 +124,10 @@ export const fetchNotes = async () => {
       throw error;
     }
   };
+
+
+  //-----------------------------------------------------------------------
+
   
   // Fetch Single Note Details
   // export const fetchNoteDetails = async (noteId) => {
@@ -100,8 +139,6 @@ export const fetchNotes = async () => {
   //     throw error;
   //   }
   // };
-
-
 
 
 
@@ -134,7 +171,7 @@ export const fetchNotes = async () => {
 //--------------------------------------------------------------------------------
 
 
-  // Delete Note
+
   export const deleteNote = async (noteId:string | string[]) => {
     try {
       await axios.delete(`${BASE_URL}/notes/${noteId}`);
@@ -143,6 +180,11 @@ export const fetchNotes = async () => {
       throw error;
     }
   };
+
+
+// -------------------------------------------------------------------------------------
+
+
   
   // // Update Note Status (Favorite/Archive)
   // export const updateNoteStatus = async (noteId, type, status) => {
@@ -207,5 +249,47 @@ export const fetchNotes = async () => {
 
 //-----------------------------------------------------------------
 
+interface DataTypes {
+  id: string;
+  folderId: string | undefined;
+  title: string;
+  preview: string;
+  updatedAt: string;
+  folder: { name: string };
+}
+const LIMIT = 20;
 
+export const fetchNotesForMiddle = async (
+  type: "Archived" | "favorites" | "Deleted" | null,
+  folderId: string |string[]|undefined,
+  page: number
+): Promise<DataTypes[]> => {
+  let url = "";
 
+  const FolderNotesApi =  `https://nowted-server.remotestate.com/notes?folderId=${folderId}&page=${page}&limit=${LIMIT}`;
+  const ArchivedNotesApi =  `https://nowted-server.remotestate.com/notes?archived=true&deleted=false&page=${page}&limit=${LIMIT}`;
+  const FavoriteNotesApi = `https://nowted-server.remotestate.com/notes?favorite=true&deleted=false&page=${page}&limit=${LIMIT}`;
+  const DeleteNotesApi = `https://nowted-server.remotestate.com/notes?deleted=true&page=${page}&limit=${LIMIT}`;
+
+  if (folderId) {
+    url = FolderNotesApi;
+  } else {
+    switch (type) {
+      case "Archived":
+        url =ArchivedNotesApi;
+        break;
+      case "favorites":
+        url = FavoriteNotesApi;
+        break;
+      case "Deleted":
+        url = DeleteNotesApi;
+        break;
+      default:
+        return [];
+    }
+  }
+
+  const response = await axios.get(url);
+  
+  return response.data.notes;
+};
