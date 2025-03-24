@@ -293,3 +293,48 @@ export const fetchNotesForMiddle = async (
   
   return response.data.notes;
 };
+
+
+
+
+//----------------------------------------------------------------------
+
+
+
+export const fetchNoteForConent = async (noteId: string) => {
+  try {
+    const { data } = await axios.get(
+      `https://nowted-server.remotestate.com/notes/${noteId}`
+    );
+    return data.note;
+  } catch (error) {
+    console.error("Error fetching note:", error);
+    throw new Error("Failed to fetch note");
+  }
+};
+
+
+
+//----------------------------------------------------------------
+
+
+export async function restoreNoteApi(noteId: string): Promise<void> {
+  await axios.post(`https://nowted-server.remotestate.com/notes/${noteId}/restore`);
+}
+
+
+//----------------------------------------------------------
+
+
+interface Folder {
+  id: string;
+  name: string;
+}
+
+
+export const fetchFolders = async (): Promise<Folder[]> => {
+  const response = await axios.get(
+    `https://nowted-server.remotestate.com/folders`
+  );
+  return response.data.folders;
+};

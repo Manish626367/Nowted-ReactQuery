@@ -7,9 +7,7 @@ function MiddlePannel() {
   const { folderId } = useParams();
   const pathname = usePathname();
 
-  const getNoteType = (
-    pathname: string
-  ): "Archived" | "favorites" | "Deleted" | null => {
+  const getNoteType = (pathname: string): "Archived" | "favorites" | "Deleted" | null => {
     if (pathname.includes("Archived")) return "Archived";
     if (pathname.includes("favorites")) return "favorites";
     if (pathname.includes("Deleted")) return "Deleted";

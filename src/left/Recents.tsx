@@ -43,35 +43,11 @@ function Resents() {
       {!isLoading &&
         !isError &&
         fetchedData.map((d: DataType) => (
-          <Link
-            // href={`/${d.folder.name}/${d.folder.id}/note/${d.id}`}
-            href={`/folder/${d.folder.id}/note/${d.id}`}
-            key={d.id}
-            passHref
-            style={{ outline: "none", textDecoration: "none" ,  color: "rgba(255, 255, 255, 0.6)",}}
-          >
-            <Box
-              sx={{
-                    
-                display: "flex",
-                gap: 1,
-                py: 1,
-                px: 1,
-                cursor: "pointer",
-                borderRadius:"3px",
-                backgroundColor:noteId === d.id ? "rgba(255, 255, 255, 0.2)" : "",
-                "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" },
-                // "&.active": { backgroundColor: "#1D4ED8", color: "#fff" },
-              }}
-            >
-              {/* <Image src={Documenticon} alt="Document Icon" width={20} height={20} /> */}
-              <IconButton
-                sx={{
-                  filter: noteId === d.id ?"" :'invert(40%) sepia(0%) saturate(9000%)'
-                }}
-                >
+          <Link href={`/folder/${d.folder.id}/note/${d.id}`} key={d.id} passHref style={{ outline: "none", textDecoration: "none" ,  color: "rgba(255, 255, 255, 0.6)",}} >
+            <Box sx={{  display: "flex",  gap: 1,  py: 1, px: 1, cursor: "pointer", borderRadius:"3px", backgroundColor:noteId === d.id ? "rgba(255, 255, 255, 0.2)" : "", "&:hover": { backgroundColor: "rgba(255, 255, 255, 0.1)" }, }} >
+              <IconButton sx={{ filter: noteId === d.id ?"" :'invert(40%) sepia(0%) saturate(9000%)' }} >
                   <Image src={Documenticon} alt="Document Icon" width={20} height={20} />
-                </IconButton>
+              </IconButton>
               <Typography   pt={1} fontWeight={550}>{d.title}</Typography>
             </Box>
           </Link>

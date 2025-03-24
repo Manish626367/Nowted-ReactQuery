@@ -15,23 +15,8 @@ interface Note {
   folder: { name: string };
 }
 
-
-// const fetchAllNotes = async () => {
-//   const response = await axios.get(
-//     "https://nowted-server.remotestate.com/notes",
-//     {
-//       params: {
-//         archived: false,
-//         deleted: false,
-//         page: 1,
-//         limit: "*",
-//       },
-//     }
-//   );
-//   return response.data.notes;
-// };
-
 const SearchNote: React.FC = () => {
+
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const {
@@ -54,62 +39,26 @@ const SearchNote: React.FC = () => {
   }, []);
 
   if (isLoading) return <CircularProgress />;
-  if (isError)
-    return <Typography color="error">Error fetching notes!</Typography>;
+
+  if (isError) return <Typography color="error">Error fetching notes!</Typography>;
 
   return (
     <Box sx={{ padding: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-      <TextField
-        type="text"
-        value={searchTerm}
-        onChange={handleSearch}
-        fullWidth
-        variant="outlined"
+      <TextField type="text" value={searchTerm} onChange={handleSearch} fullWidth variant="outlined"
         sx={{
           "& .MuiOutlinedInput-root": {
             height: "36px",
             fontSize: "14px",
-            "& fieldset": {
-              borderColor: "#fff", // White border
-            },
-            "&:hover fieldset": {
-              borderColor: "#fff", // White border on hover
-            },
-            "&.Mui-focused fieldset": {
-              borderColor: "#fff", // White border on focus
-            },
+            "& fieldset, &:hover fieldset, &.Mui-focused fieldset": { borderColor: "#fff" }
           },
-          "& .MuiInputBase-input": {
-            color: "#fff", // White text
-          },
-          "& .MuiInputLabel-root": {
-            color: "#fff", // White label text
-          },
+          "& .MuiInputBase-input, & .MuiInputLabel-root": { color: "#fff" }
         }}
+        
       />
-
-      <Box
-        sx={{
-          maxHeight: "150px",
-          overflowY: "auto",
-          borderBottom: "1px solid #ccc",
-          borderRadius: "4px",
-          "&::-webkit-scrollbar": { display: "none" },
-        }}
-      >
+      <Box sx={{ maxHeight: "150px", overflowY: "auto", borderBottom: "1px solid #ccc", borderRadius: "4px", "&::-webkit-scrollbar": { display: "none" } }}>
         {searchTerm && filteredNotes.length > 0 ? (
           filteredNotes.map((note: Note) => (
-            <Link
-              href={`/folder/${note.folderId}/note/${note.id}`}
-              key={note.id}
-              style={{
-                display: "block",
-                padding: "10px",
-                borderBottom: "1px solid #ddd",
-                color: "#fff",
-                textDecoration: "none",
-              }}
-            >
+            <Link href={`/folder/${note.folderId}/note/${note.id}`} key={note.id} style={{ display: "block", padding: "10px", borderBottom: "1px solid #ddd", color: "#fff", textDecoration: "none" }}>
               {note.title}
             </Link>
           ))

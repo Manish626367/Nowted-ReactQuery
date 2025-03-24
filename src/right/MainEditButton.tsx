@@ -3,22 +3,11 @@
 import { Button, Typography } from "@mui/material";
 import Image from "next/image";
 
-const MainEditButton = ({
-  icon,
-  text,
-  onClick,
-}: {
-  icon: string;
-  text: string;
-  onClick: () => void;
-}) => {
+const MainEditButton = ({ icon, text, onClick}: { icon: string; text: string; onClick: () => void;}) => {
   return (
     <Button
       fullWidth
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick();
-      }}
+      onClick={(e) => { e.stopPropagation(); onClick(); }}
         sx={{
           display: "flex",
           gap: 2,

@@ -4,14 +4,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import {
-  Box,
-  Typography,
-  Menu,
-  MenuItem,
-  CircularProgress,
-  IconButton,
-} from "@mui/material";
+import {Box, Typography, Menu, MenuItem, CircularProgress, IconButton,} from "@mui/material";
 import EditPopup from "./EditPopup";
 import EditNote from "./EditNote";
 import EditContent from "./EditContent";
@@ -21,40 +14,8 @@ import Image from "next/image";
 import dateIcon from "../images/DateIcon.svg";
 import closedFolderIcon from "../images/folder_closed_Icon.svg";
 import { useRouter } from "next/navigation";
-import { fetchNote } from "@/API/api";
+import { fetchFolders, fetchNote } from "@/API/api";
 
-// interface Note {
-//   id: string;
-//   title: string;
-//   content: string;
-//   createdAt: string;
-//   deletedAt: string | null;
-//   folder: {
-//     id: string;
-//     name: string;
-//   };
-// }
-
-interface Folder {
-  id: string;
-  name: string;
-}
-
-// const fetchNote = async (
-//   noteId: string | string[] | undefined
-// ): Promise<Note> => {
-//   const response = await axios.get(
-//     `https://nowted-server.remotestate.com/notes/${noteId}`
-//   );
-//   return response.data.note;
-// };
-
-const fetchFolders = async (): Promise<Folder[]> => {
-  const response = await axios.get(
-    `https://nowted-server.remotestate.com/folders`
-  );
-  return response.data.folders;
-};
 
 export default function ShowNotesContent() {
   const pathname = usePathname();
@@ -67,7 +28,7 @@ export default function ShowNotesContent() {
   const { data: getNote, isLoading: noteLoading } = useQuery({
     queryKey: ["note", noteId],
     queryFn: () => fetchNote(noteId),
-    enabled: !!noteId,
+    enabled: !!noteId, 
   });
 
   const { data: folders, isLoading: foldersLoading } = useQuery({
@@ -75,7 +36,7 @@ export default function ShowNotesContent() {
     queryFn: fetchFolders,
   });
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [ShowFolderList, setShowFolderList] = useState<null | HTMLElement>(null);
 
   const saveMutation = useMutation({
     mutationFn: (data: {
@@ -111,7 +72,7 @@ export default function ShowNotesContent() {
 
   const changeFolderHandler = async (folderId: string): Promise<void> => {
     await saveMutation.mutateAsync({ folderId });
-    setAnchorEl(null);
+    setShowFolderList(null);
     router.push(`/folder/${folderId}/note/${noteId}`);
   };
 
@@ -133,38 +94,21 @@ export default function ShowNotesContent() {
       </Box>
 
       <Box>
-        <Box
-          display="flex"
-          gap={4}
-          fontWeight="fontWeightBold"
-          py={2}
-          borderColor="grey.800"
-          borderBottom={'1px solid gray'}
-        >
+      <Box display="flex" gap={4} fontWeight="fontWeightBold" py={2} borderColor="grey.800" borderBottom="1px solid gray">
           <Box display="flex" gap={2} color="grey.500">
             <Image src={dateIcon} alt="Date Icon" />
             <Typography>Date</Typography>
           </Box>
           <Typography
-            sx={{
-              borderBottom: "1px solid",
-              borderColor: "grey.500",
-            }}
+            sx={{ borderBottom: "1px solid grey.500" }}
           >
             {new Date(getNote.createdAt).toLocaleDateString()}
           </Typography>
         </Box>
 
         {/* Folder Dropdown Section */}
-        <Box
-          fontWeight="fontWeightBold"
-          borderColor="grey.800"
-          display="flex"
-          alignItems="center"
-          gap={3}
-          pt={2}
-          sx={{ cursor: "pointer" }}
-          onClick={(event) => setAnchorEl(event.currentTarget)}
+        <Box sx={{ fontWeight: "fontWeightBold", borderColor: "grey.800", display: "flex", alignItems: "center", gap: 3, pt: 2, cursor: "pointer" }}
+          onClick={(event) => setShowFolderList(event.currentTarget)}
         >
           <Box display="flex" gap={2} color="grey.500">
             <Image src={closedFolderIcon} alt="Date Icon" />
@@ -179,34 +123,19 @@ export default function ShowNotesContent() {
         </Box>
 
         <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={() => setAnchorEl(null)}
+          anchorEl={ShowFolderList}
+          open={Boolean(ShowFolderList)}
+          onClose={() => setShowFolderList(null)}
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           slotProps={{
             paper: {
-              sx: {
-                backgroundColor: "grey.800",
-                color: "white",
-                border: "1px solid #4b5563",
-                borderRadius: 2,
-                boxShadow: 3,
-                maxHeight: "280px",
-                overflowY: "auto",
-              },
+              sx: {  backgroundColor: "grey.900",  color: "white",  border: "1px solid #4b5563",  borderRadius: 2,  boxShadow: 3, maxHeight: "280px", overflowY: "auto","&::-webkit-scrollbar": { display: "none" }},
             },
           }}
         >
           {folders?.map((folder) => (
-            <MenuItem
-              key={folder.id}
-              onClick={() => changeFolderHandler(folder.id)}
-              sx={{
-                py: 1,
-                px: 2,
-                "&:hover": { backgroundColor: "grey.700" },
-              }}
-            >
+            <MenuItem key={folder.id}  onClick={() => changeFolderHandler(folder.id)}
+              sx={{  py: 1,  px: 2,  "&:hover": { backgroundColor: "grey.700" },  }} >
               {folder.name}
             </MenuItem>
           ))}
