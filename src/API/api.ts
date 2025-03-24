@@ -129,16 +129,7 @@ export const fetchNotes = async () => {
   //-----------------------------------------------------------------------
 
   
-  // Fetch Single Note Details
-  // export const fetchNoteDetails = async (noteId) => {
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/notes/${noteId}`);
-  //     return response.data.note;
-  //   } catch (error) {
-  //     console.error("Error fetching note details:", error);
-  //     throw error;
-  //   }
-  // };
+
 
 
 
@@ -180,31 +171,6 @@ export const fetchNotes = async () => {
       throw error;
     }
   };
-
-
-// -------------------------------------------------------------------------------------
-
-
-  
-  // // Update Note Status (Favorite/Archive)
-  // export const updateNoteStatus = async (noteId, type, status) => {
-  //   try {
-  //     const payload =
-  //       type === "Favorite" ? { isFavorite: status } : { isArchived: status };
-  
-  //     const response = await axios.patch(
-  //       `${BASE_URL}/notes/${noteId}`,
-  //       payload,
-  //       { headers: { "Content-Type": "application/json" } }
-  //     );
-  
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error(`Error updating ${type}:`, error);
-  //     throw error;
-  //   }
-  // };
-  
 
 
 

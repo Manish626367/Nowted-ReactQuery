@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Typography, CircularProgress, IconButton } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { getRecentNotes } from "../API/api";
 import Image from "next/image";
@@ -33,7 +33,8 @@ function Resents() {
         Recents
       </Typography>
 
-      {isLoading && <CircularProgress />}
+      {/* {isLoading && <CircularProgress />} */}
+
       {isError && (
         <Typography color="error">
           {error instanceof Error ? error.message : "Error fetching data"}

@@ -1,9 +1,12 @@
+
+
+
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
-import { Box, TextField, Typography, CircularProgress } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 import { fetchNotes } from "@/API/api";
 
 interface Note {
@@ -16,7 +19,6 @@ interface Note {
 }
 
 const SearchNote: React.FC = () => {
-
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const {
@@ -38,34 +40,37 @@ const SearchNote: React.FC = () => {
     setSearchTerm(e.target.value);
   }, []);
 
-  if (isLoading) return <CircularProgress />;
-
-  if (isError) return <Typography color="error">Error fetching notes!</Typography>;
-
   return (
     <Box sx={{ padding: 1, display: "flex", flexDirection: "column", gap: 1 }}>
-      <TextField type="text" value={searchTerm} onChange={handleSearch} fullWidth variant="outlined"
-        sx={{
-          "& .MuiOutlinedInput-root": {
-            height: "36px",
-            fontSize: "14px",
-            "& fieldset, &:hover fieldset, &.Mui-focused fieldset": { borderColor: "#fff" }
-          },
-          "& .MuiInputBase-input, & .MuiInputLabel-root": { color: "#fff" }
-        }}
-        
+      
+      <TextField type="text" value={searchTerm} onChange={handleSearch}   fullWidth variant="outlined"  placeholder="Search notes..."
+        sx={{  "& .MuiOutlinedInput-root": {  height: "36px",  fontSize: "14px", "& fieldset, &:hover fieldset, &.Mui-focused fieldset": { borderColor: "gray" } }, "& .MuiInputBase-input, & .MuiInputLabel-root": { color: "#fff" }, "& .MuiInputBase-input": {  color: "#fff", fontFamily: "'Poppins', sans-serif",},}}
       />
-      <Box sx={{ maxHeight: "150px", overflowY: "auto", borderBottom: "1px solid #ccc", borderRadius: "4px", "&::-webkit-scrollbar": { display: "none" } }}>
-        {searchTerm && filteredNotes.length > 0 ? (
-          filteredNotes.map((note: Note) => (
-            <Link href={`/folder/${note.folderId}/note/${note.id}`} key={note.id} style={{ display: "block", padding: "10px", borderBottom: "1px solid #ddd", color: "#fff", textDecoration: "none" }}>
-              {note.title}
-            </Link>
-          ))
-        ) : searchTerm ? (
-          <Typography sx={{ padding: 1 }}>No notes found!</Typography>
-        ) : null}
-      </Box>
+
+      {!isLoading && !isError && (
+        <Box
+          sx={{ fontFamily:" 'Poppins' , sans-serif" , maxHeight: "150px", overflowY: "auto",  borderBottom: "1px solid #ccc", borderRadius: "4px", border:"none", "&::-webkit-scrollbar": { display: "none" } }}  >
+          {searchTerm && filteredNotes.length > 0 ? (
+            filteredNotes.map((note: Note) => (
+              <Link
+                href={`/folder/${note.folderId}/note/${note.id}`}
+                key={note.id}
+                style={{
+                  display: "block",
+                  padding: "10px",
+                  borderBottom: "1px solid gray",
+                  color: "#fff",
+                  textDecoration: "none"
+                }}
+              >
+                {note.title}
+              </Link>
+            ))
+          ) : searchTerm ? (
+            <Typography sx={{ padding: 1 }}>No notes found!</Typography>
+          ) : null}
+        </Box>
+      )}
     </Box>
   );
 };

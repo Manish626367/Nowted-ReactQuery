@@ -56,7 +56,7 @@ function Folder() {
   });
 
 
-  if (isLoading) return <CircularProgress />;
+  if (isLoading) return <CircularProgress />
 
   if (isError) return <Typography color="error">Error fetching folders!</Typography>;
 

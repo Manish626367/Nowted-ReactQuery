@@ -103,8 +103,6 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
   
       if (folderId) {
         router.push(`/folder/${folderId}`);
-      } else if (section === "Recent") {
-        router.push("/");
       } else {
         router.push(`/${section}`);
       }

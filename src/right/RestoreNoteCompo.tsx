@@ -23,7 +23,6 @@ async function fetchNoteDetails(noteId: string): Promise<Note> {
   return response.data.note;
 }
 
-
 export default function RestoreNoteCompo() {
   const pathname = usePathname();
   const noteId = pathname.split("/").pop();
@@ -48,13 +47,14 @@ export default function RestoreNoteCompo() {
   const restoreMutation = useMutation({
     mutationFn: () => restoreNoteApi(noteId as string),
     onSuccess: async () => {
-      console.log('Restored successfully!');
+  
       queryClient.invalidateQueries({queryKey:["notes"]});
       queryClient.invalidateQueries({ queryKey: ["note", noteId] });
-      if (!(section === 'Archived') && getNote?.folderId) {
+
+      if (!(section === 'Archived' || section === 'favorites') && getNote?.folderId) {
         router.push(`/folder/${getNote.folderId}/note/${noteId}`);
       }      
-      else if(section === 'Archived') router.push(`/${section}`)
+      else  if(section === 'Archived' || section === 'favorites') router.push(`/${section}/note/${noteId}`)
     },
     onError: (error) => {
       console.error('Error restoring note:', error);

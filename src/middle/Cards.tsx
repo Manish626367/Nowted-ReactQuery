@@ -1,6 +1,8 @@
 import { memo } from "react";
 import { Card as MuiCard, CardContent, Typography, Box } from "@mui/material";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 
 interface CardProps {
   title: string;
@@ -12,6 +14,11 @@ interface CardProps {
 }
 
 const Cards = memo(function Card({ title, text, lastdate, id, folderId, type }: CardProps) {
+  
+  const pathname = usePathname();
+  const NoteId = pathname.split("/").pop();
+  
+
   const linkHref = folderId 
     ? `/folder/${folderId}/note/${id}` 
     : `/${type}/note/${id}`;
@@ -20,7 +27,8 @@ const Cards = memo(function Card({ title, text, lastdate, id, folderId, type }: 
     <Link key={id} href={linkHref} style={{ textDecoration: "none" }}>
       <MuiCard
         sx={{
-          backgroundColor: "#1e1e1e",
+          // backgroundColor: "#1e1e1e",
+          backgroundColor: NoteId === id ? "#2c2c2c" : "#1e1e1e",
           borderRadius: "12px",
           boxShadow: "0 4px 15px rgba(0, 0, 0, 0.5)",
           color: "#FFFFFF",

@@ -20,7 +20,6 @@ interface CombinedNotesProps {
   type: "Archived" | "favorites" | "Deleted" | null;
 }
 
-const LIMIT = 20;
 
 function MiddleTesting({ type }: CombinedNotesProps) {
   const { folderId } = useParams();
@@ -38,22 +37,24 @@ function MiddleTesting({ type }: CombinedNotesProps) {
       enabled: !!type || !!folderId,
       initialPageParam: 1,
       getNextPageParam: (lastPage: DataTypes[], allPages) =>
-        lastPage.length < LIMIT ? undefined : allPages.length + 1,
+        lastPage.length < 20 ? undefined : allPages.length + 1,
     });
 
   return (
     <>
-      <Typography
+     
+     <Typography
         variant="h5"
         sx={{ padding: "20px 16px 0px", fontWeight: "600" }}
       >
         {isLoading
-          ? "Loading..."
+          ? ""
           : folder?.name ||
             (type
               ? type.charAt(0).toUpperCase() + type.slice(1)
               : "Folder not found")}
       </Typography>
+
 
       <Box display="flex" flexDirection="column" gap={2} py={4}>
         {isLoading ? (
@@ -106,3 +107,11 @@ function MiddleTesting({ type }: CombinedNotesProps) {
 }
 
 export default MiddleTesting;
+
+
+
+
+
+
+
+
