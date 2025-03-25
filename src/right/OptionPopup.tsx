@@ -80,7 +80,7 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
   onSuccess: (updatedNote, variables) => {
 
     // queryClient.invalidateQueries({queryKey:["note", noteId]});
-    queryClient.invalidateQueries({ queryKey: ["notes"] });
+    // queryClient.invalidateQueries({ queryKey: ["notes"] });
 
     const type = variables;
     if (type === "Favorite") {
@@ -91,6 +91,7 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
       );
   
       if (section === "favorites") {
+        queryClient.invalidateQueries({ queryKey: ["notes"] });
         router.push("/favorites");
       }
     } else {
@@ -99,7 +100,7 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
           ? "Archived Successfully!"
           : "Unarchived Successfully!"
       );
-  
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
       if (folderId) {
         router.push(`/folder/${folderId}`);
       } else {
@@ -111,7 +112,6 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
 })
 
 
-
 const deleteNoteMutation = useMutation({
   mutationFn: async () => {
     await deleteNote(noteId as string);
@@ -121,7 +121,6 @@ const deleteNoteMutation = useMutation({
     
     queryClient.invalidateQueries({queryKey:["note", noteId]});
     queryClient.invalidateQueries({ queryKey: ["notes"] });
-
     
     if (folderId) {
       router.push(`/folder/${folderId}/note/${noteId}`);
@@ -138,7 +137,6 @@ const deleteNoteMutation = useMutation({
 });
 
   
-
   const handleDelete = async () => {
     if (!noteId) return;
     deleteNoteMutation.mutate();

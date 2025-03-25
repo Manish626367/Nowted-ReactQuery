@@ -28,7 +28,6 @@ function Folder() {
   const {
     data: fetchedData = [],
     isLoading,
-    isError,
   } = useQuery({
     queryKey: ["folders"],
     queryFn: getFolders,
@@ -41,7 +40,6 @@ function Folder() {
       queryClient.invalidateQueries({ queryKey: ["folders"] });
       alert("Successfully created New Folder!");
     },
-    onError: () => alert("Error in creating Folder"),
   });
 
   
@@ -52,7 +50,6 @@ function Folder() {
       queryClient.invalidateQueries({ queryKey: ["folders"] });
       alert("Successfully deleted Folder!");
     },
-    onError: () => alert("Error deleting folder"),
   });
 
 
@@ -63,7 +60,6 @@ function Folder() {
    </Box>
 )
 
-  if (isError) return <Typography color="error">Error fetching folders!</Typography>;
 
   return (
     <Box sx={{ width: "100%",color: "#94A3B8",fontWeight: 600,gap: 1,padding: "10px",}} >

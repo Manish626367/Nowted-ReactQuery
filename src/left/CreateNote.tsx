@@ -19,9 +19,6 @@ function CreateNote() {
       alert("Successfully created note!");
       queryClient.invalidateQueries({queryKey:["notes"]});
     },
-    onError: (error) => {
-      console.error("Error creating note:", error);
-    },
   });
 
   return (

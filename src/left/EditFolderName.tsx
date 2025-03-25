@@ -15,24 +15,21 @@ interface EditFolderNameType {
 }
 
 const EditFolderName: React.FC<EditFolderNameType> = ({ id, name, setFetchedData }) => {
-  
+
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(name || "");
 
   const queryClient = useQueryClient();
 
+
   const mutation = useMutation({
     mutationFn: (newName: string) => editFolderName(id, newName),
     onSuccess: (_, newName) => {
       setFetchedData((prev) =>
-        prev.map((folder) =>
-          folder.id === id ? { ...folder, name: newName } : folder
+        prev.map((folder) => folder.id === id ? { ...folder, name: newName } : folder
         )
-      );
+      );   
       queryClient.invalidateQueries({ queryKey: ["folders"] });
-    },
-    onError: (error) => {
-      console.error("Error updating folder name:", error);
     },
   });
 

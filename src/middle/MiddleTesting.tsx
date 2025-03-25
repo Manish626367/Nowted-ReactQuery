@@ -43,6 +43,7 @@ function MiddleTesting({ type }: CombinedNotesProps) {
 
   return (
     <>
+
      <Typography
         variant="h5"
         sx={{ padding: "20px 16px 0px", fontWeight: "600" }}

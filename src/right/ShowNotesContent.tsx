@@ -17,13 +17,17 @@ import { useRouter } from "next/navigation";
 import { fetchFolders, fetchNote } from "@/API/api";
 
 
+
 export default function ShowNotesContent() {
   const pathname = usePathname();
+
   const noteId = pathname.split("/").pop();
 
   const router = useRouter();
 
   const queryClient = useQueryClient();
+
+  const section = pathname.split("/")[1];
 
   const { data: getNote, isLoading: noteLoading } = useQuery({
     queryKey: ["note", noteId],
@@ -48,9 +52,11 @@ export default function ShowNotesContent() {
         `https://nowted-server.remotestate.com/notes/${noteId}`,
         data
       ),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["note", noteId] });
-      // queryClient.invalidateQueries({queryKey:["notes"]});
+      onSuccess:()=>{
+        queryClient.invalidateQueries({ queryKey: ["note", noteId] });
+      },
+    onError: () => {
+       console.log("error in updation !")
     },
   });
 
@@ -60,7 +66,9 @@ export default function ShowNotesContent() {
   ): Promise<void> => {
     if (!newTitle.trim()) return;
     await saveMutation.mutateAsync({ title: newTitle });
+    
   };
+
 
   const saveContentHandler = async (
     id: string,
@@ -70,11 +78,15 @@ export default function ShowNotesContent() {
     await saveMutation.mutateAsync({ content: newContent });
   };
 
+
   const changeFolderHandler = async (folderId: string): Promise<void> => {
     await saveMutation.mutateAsync({ folderId });
     setShowFolderList(null);
-    router.push(`/folder/${folderId}/note/${noteId}`);
+    if(section === 'folder')
+       router.push(`/folder/${folderId}/note/${noteId}`);
+
   };
+
 
   if (noteLoading || foldersLoading) return(
     <Box display="flex" height="50vh"  justifyContent="center" alignItems="center">
@@ -89,11 +101,7 @@ export default function ShowNotesContent() {
   ) : (
     <Box p={4} display="flex" flexDirection="column" gap={3} >
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <EditNote
-          id={noteId as string}
-          name={getNote.title}
-          onSave={saveTitleHandler}
-        />
+        <EditNote id={noteId as string} name={getNote.title} onSave={saveTitleHandler} />
         <EditPopup />
       </Box>
 
@@ -103,9 +111,7 @@ export default function ShowNotesContent() {
             <Image src={dateIcon} alt="date logo" />
             <Typography>Date</Typography>
           </Box>
-          <Typography
-            sx={{ borderBottom: "1px solid grey.500" }}
-          >
+          <Typography sx={{ borderBottom: "1px solid grey.500" }} >
             {new Date(getNote.createdAt).toLocaleDateString()}
           </Typography>
         </Box>
@@ -126,10 +132,7 @@ export default function ShowNotesContent() {
           </IconButton>
         </Box>
 
-        <Menu
-          anchorEl={ShowFolderList}
-          open={Boolean(ShowFolderList)}
-          onClose={() => setShowFolderList(null)}
+        <Menu anchorEl={ShowFolderList} open={Boolean(ShowFolderList)} onClose={() => setShowFolderList(null)}
           slotProps={{
             paper: {
               sx: {  backgroundColor: "grey.900",  color: "white",  border: "1px solid #4b5563",  borderRadius: 2,  boxShadow: 3, maxHeight: "280px", overflowY: "auto","&::-webkit-scrollbar": { display: "none" }},
