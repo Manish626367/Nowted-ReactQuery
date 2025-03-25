@@ -76,14 +76,18 @@ export default function ShowNotesContent() {
     router.push(`/folder/${folderId}/note/${noteId}`);
   };
 
-  if (noteLoading || foldersLoading) return <CircularProgress />;
+  if (noteLoading || foldersLoading) return(
+    <Box display="flex" height="50vh"  justifyContent="center" alignItems="center">
+       <CircularProgress style={{color:"white"}}/>
+    </Box>
+  )
 
   if (!getNote) return <Typography align="center">Loading...</Typography>;
 
   return getNote.deletedAt ? (
     <RestoreNoteCompo />
   ) : (
-    <Box p={4} display="flex" flexDirection="column" gap={3}>
+    <Box p={4} display="flex" flexDirection="column" gap={3} >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <EditNote
           id={noteId as string}
@@ -96,7 +100,7 @@ export default function ShowNotesContent() {
       <Box>
       <Box display="flex" gap={4} fontWeight="fontWeightBold" py={2} borderColor="grey.800" borderBottom="1px solid gray">
           <Box display="flex" gap={2} color="grey.500">
-            <Image src={dateIcon} alt="Date Icon" />
+            <Image src={dateIcon} alt="date logo" />
             <Typography>Date</Typography>
           </Box>
           <Typography
@@ -106,12 +110,12 @@ export default function ShowNotesContent() {
           </Typography>
         </Box>
 
-        {/* Folder Dropdown Section */}
+        {/* -----list of folders ----dropdown --- */}
         <Box sx={{ fontWeight: "fontWeightBold", borderColor: "grey.800", display: "flex", alignItems: "center", gap: 3, pt: 2, cursor: "pointer" }}
           onClick={(event) => setShowFolderList(event.currentTarget)}
         >
           <Box display="flex" gap={2} color="grey.500">
-            <Image src={closedFolderIcon} alt="Date Icon" />
+            <Image src={closedFolderIcon} alt="folder logo" />
             <Typography>Folder</Typography>
           </Box>
           <Typography borderBottom={"1px solid gray"}>
@@ -126,7 +130,6 @@ export default function ShowNotesContent() {
           anchorEl={ShowFolderList}
           open={Boolean(ShowFolderList)}
           onClose={() => setShowFolderList(null)}
-          anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           slotProps={{
             paper: {
               sx: {  backgroundColor: "grey.900",  color: "white",  border: "1px solid #4b5563",  borderRadius: 2,  boxShadow: 3, maxHeight: "280px", overflowY: "auto","&::-webkit-scrollbar": { display: "none" }},

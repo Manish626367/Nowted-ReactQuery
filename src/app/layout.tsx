@@ -42,12 +42,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </Box>
 
             {/* --- right pannel---- */}
-            <Box  flexGrow={1}
+            <Box  
               width="53.6%"
               height="100vh"
+           
               bgcolor="#000000"
               sx={{
-                overflowY: "auto",
+                overflowY: "hidden",
                 scrollbarWidth: "none",
                 "&::-webkit-scrollbar": { display: "none" },
               }}>

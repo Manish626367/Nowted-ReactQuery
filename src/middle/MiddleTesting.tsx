@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Box, Typography, Button, CircularProgress } from "@mui/material";
@@ -36,13 +37,12 @@ function MiddleTesting({ type }: CombinedNotesProps) {
       queryFn: ({ pageParam = 1 }) => fetchNotesForMiddle(type, folderId, pageParam),
       enabled: !!type || !!folderId,
       initialPageParam: 1,
-      getNextPageParam: (lastPage: DataTypes[], allPages) =>
+      getNextPageParam: (lastPage, allPages) =>
         lastPage.length < 20 ? undefined : allPages.length + 1,
     });
 
   return (
     <>
-     
      <Typography
         variant="h5"
         sx={{ padding: "20px 16px 0px", fontWeight: "600" }}
@@ -59,11 +59,11 @@ function MiddleTesting({ type }: CombinedNotesProps) {
       <Box display="flex" flexDirection="column" gap={2} py={4}>
         {isLoading ? (
           <Box display="flex" justifyContent="center" mt={3}>
-            <CircularProgress />
+            <CircularProgress style={{color:"white"}}/>
           </Box>
         ) : (
           <>
-            {data?.pages.flatMap((page) =>
+            {data?.pages.map((page) =>
               page.map((note: DataTypes) =>
                 folderId ? (
                   <Cards

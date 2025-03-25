@@ -15,8 +15,9 @@ interface EditFolderNameType {
 }
 
 const EditFolderName: React.FC<EditFolderNameType> = ({ id, name, setFetchedData }) => {
+  
   const [isEditing, setIsEditing] = useState(false);
-  const [editText, setEditText] = useState(name);
+  const [editText, setEditText] = useState(name || "");
 
   const queryClient = useQueryClient();
 

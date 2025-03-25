@@ -26,8 +26,6 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
   const section = pathname.split("/")[1];
   const noteId = pathname.split("/").pop();
 
-  console.log("Note ID:", noteId, "Folder ID:", folderId);
-
   const {
     data: note,
     isError,
@@ -36,6 +34,7 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
     queryKey: ["note", noteId],
     queryFn: () => fetchNoteForConent(noteId as string),
     enabled: !!noteId,
+    refetchOnMount: false,
   });
 
   const updateNoteMutation = useMutation({
@@ -80,7 +79,7 @@ const OptionPopup = ({ closePopup }: { closePopup: () => void }) => {
 
   onSuccess: (updatedNote, variables) => {
 
-    queryClient.invalidateQueries({queryKey:["note", noteId]});
+    // queryClient.invalidateQueries({queryKey:["note", noteId]});
     queryClient.invalidateQueries({ queryKey: ["notes"] });
 
     const type = variables;

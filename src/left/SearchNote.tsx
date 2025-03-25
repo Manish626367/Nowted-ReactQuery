@@ -41,7 +41,7 @@ const SearchNote: React.FC = () => {
   }, []);
 
   return (
-    <Box sx={{ padding: 1, display: "flex", flexDirection: "column", gap: 1 }}>
+    <Box sx={{ padding: 1, display: "flex", flexDirection: "column", gap: 1, }}>
       
       <TextField type="text" value={searchTerm} onChange={handleSearch}   fullWidth variant="outlined"  placeholder="Search notes..."
         sx={{  "& .MuiOutlinedInput-root": {  height: "36px",  fontSize: "14px", "& fieldset, &:hover fieldset, &.Mui-focused fieldset": { borderColor: "gray" } }, "& .MuiInputBase-input, & .MuiInputLabel-root": { color: "#fff" }, "& .MuiInputBase-input": {  color: "#fff", fontFamily: "'Poppins', sans-serif",},}}
@@ -49,7 +49,7 @@ const SearchNote: React.FC = () => {
 
       {!isLoading && !isError && (
         <Box
-          sx={{ fontFamily:" 'Poppins' , sans-serif" , maxHeight: "150px", overflowY: "auto",  borderBottom: "1px solid #ccc", borderRadius: "4px", border:"none", "&::-webkit-scrollbar": { display: "none" } }}  >
+          sx={{  left: 18, backgroundColor: "#121212", width:"20%", top: "140px", position: "absolute", zIndex: 10, fontFamily:" 'Poppins' , sans-serif" , maxHeight: "195px", overflowY: "auto",  borderBottom: "1px solid #ccc", borderRadius: "4px", border:"none", "&::-webkit-scrollbar": { display: "none" } }}  >
           {searchTerm && filteredNotes.length > 0 ? (
             filteredNotes.map((note: Note) => (
               <Link

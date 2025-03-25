@@ -3,7 +3,13 @@
 import { Button, Typography } from "@mui/material";
 import Image from "next/image";
 
-const MainEditButton = ({ icon, text, onClick}: { icon: string; text: string; onClick: () => void;}) => {
+interface buttonType {
+  icon : string,
+  text:string,
+  onClick:()=>void,
+}
+
+const MainEditButton: React.FC <buttonType> = ({ icon, text, onClick}) => {
   return (
     <Button
       fullWidth

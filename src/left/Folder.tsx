@@ -56,7 +56,12 @@ function Folder() {
   });
 
 
-  if (isLoading) return <CircularProgress />
+  if (isLoading)
+   return  (
+   <Box display="flex" height="50vh"  justifyContent="center" alignItems="center">
+      <CircularProgress style={{color:"white"}} />
+   </Box>
+)
 
   if (isError) return <Typography color="error">Error fetching folders!</Typography>;
 
@@ -75,7 +80,7 @@ function Folder() {
         {fetchedData.map((d: FolderDataType) => {
         const isActive = d.id === folderId
           return (
-            <Box key={d.id} sx={{ "&:hover": { backgroundColor: "#1E293B" }, backgroundColor: isActive ? "#1E293B" : "transparent", display: "flex", justifyContent: "space-between", py: 1, px: 2,}} >
+            <Box key={d.id} sx={{ "&:hover": { backgroundColor: "#1E293B" }, backgroundColor: isActive ? "#1E293B" : "transparent", display: "flex", justifyContent: "space-between", py: 0.5, px: 2,}} >
               <Link href={`/folder/${d.id}`} key={d.id} passHref style={{ outline: "none", textDecoration: "none" }}>
                 <Box display="flex" pt={1} gap={2} alignItems="center" sx={{ cursor: "pointer" }} >
                   {isActive ? ( 

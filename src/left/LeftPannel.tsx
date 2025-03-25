@@ -9,7 +9,7 @@ function Sidebar() {
     <Box display="flex" flexDirection="column" height="100vh" gap={2} overflow="hidden" py={3}>
       <LogoSearch />
       <Resents />
-      <Box flexGrow={1} overflow="auto" minHeight="20vh" sx={{ "&::-webkit-scrollbar": { display: "none" } }}>
+      <Box flexGrow={1} overflow="auto" minHeight="20vh" sx={{ "&::-webkit-scrollbar": { width: "6px", }, "&::-webkit-scrollbar-thumb": { background: "#555",  borderRadius: "10px", },}}>
         <Folder />
       </Box>
       <Box sx={{ flexShrink: 0, overflow: "hidden" }}>

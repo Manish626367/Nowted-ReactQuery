@@ -9,13 +9,10 @@ const BASE_URL = "https://nowted-server.remotestate.com";
 
 
 export const getFolders = async () => {
-    try {
+
         const response = await axios.get(`${BASE_URL}/folders`);
         return response.data.folders;
-    } catch (error) {
-        console.error("Error fetching folders:", error);
-        return [];
-    }
+
 };
 
 
@@ -96,13 +93,10 @@ export const createNote = async (folderId:string | string[] | undefined) => {
 
 
 export const getRecentNotes = async () => {
-    try {
+  
         const response = await axios.get(`${BASE_URL}/notes/recent`);
         return response.data.recentNotes;
-    } catch (error) {
-        console.error("Error fetching recent notes:", error);
-        return [];
-    }
+ 
 };
 
 
@@ -111,7 +105,7 @@ export const getRecentNotes = async () => {
 
 
 export const fetchNotes = async () => {
-    try {
+    
       const response = await axios.get(`${BASE_URL}/notes`, { params: {
         archived: false,
         deleted: false,
@@ -119,18 +113,13 @@ export const fetchNotes = async () => {
         limit:'*',
     }, });
       return response.data.notes;
-    } catch (error) {
-      console.error("Error fetching notes:", error);
-      throw error;
-    }
+
   };
 
 
   //-----------------------------------------------------------------------
 
   
-
-
 
 
   //------ fetching a particular note ------------
@@ -164,12 +153,9 @@ export const fetchNotes = async () => {
 
 
   export const deleteNote = async (noteId:string | string[]) => {
-    try {
+
       await axios.delete(`${BASE_URL}/notes/${noteId}`);
-    } catch (error) {
-      console.error("Error deleting note:", error);
-      throw error;
-    }
+
   };
 
 
@@ -202,13 +188,10 @@ export const fetchNotes = async () => {
         limit: 20,
     };
 
-    try {
+  
         const response = await axios.get<NotesResponse>(`${BASE_URL}/notes`, { params });
         return response.data;
-    } catch (error) {
-        console.error("Error fetching notes data:", error);
-        return { notes: [] };
-    }
+  
 };
 
 
@@ -268,15 +251,12 @@ export const fetchNotesForMiddle = async (
 
 
 export const fetchNoteForConent = async (noteId: string) => {
-  try {
+ 
     const { data } = await axios.get(
       `https://nowted-server.remotestate.com/notes/${noteId}`
     );
     return data.note;
-  } catch (error) {
-    console.error("Error fetching note:", error);
-    throw new Error("Failed to fetch note");
-  }
+
 };
 
 
