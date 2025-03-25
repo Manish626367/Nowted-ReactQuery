@@ -6,10 +6,10 @@ import More from "./More";
 
 function Sidebar() {
   return (
-    <Box display="flex" flexDirection="column" height="100vh" gap={2} overflow="hidden" py={3}>
+    <Box display="flex" flexDirection="column" height="100vh" gap={2} overflow="hidden" py={2}>
       <LogoSearch />
       <Resents />
-      <Box flexGrow={1} overflow="auto" minHeight="20vh" sx={{ "&::-webkit-scrollbar": { width: "6px", }, "&::-webkit-scrollbar-thumb": { background: "#555",  borderRadius: "10px", },}}>
+      <Box overflow="auto" minHeight="20vh" sx={{ "&::-webkit-scrollbar": { width: "3px", }, "&::-webkit-scrollbar-thumb": { background: "#555",  borderRadius: "10px", },}}>
         <Folder />
       </Box>
       <Box sx={{ flexShrink: 0, overflow: "hidden" }}>

@@ -22,7 +22,7 @@ function CreateNote() {
   });
 
   return (
-    <Box px={1} sx={{ cursor: "pointer" }}>
+    <Box px={0} sx={{ cursor: "pointer" }}>
       <Button
         variant="contained"
         fullWidth

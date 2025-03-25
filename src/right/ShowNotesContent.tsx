@@ -99,14 +99,14 @@ export default function ShowNotesContent() {
   return getNote.deletedAt ? (
     <RestoreNoteCompo />
   ) : (
-    <Box p={4} display="flex" flexDirection="column" gap={3} >
+    <Box py={3} px={4} display="flex" flexDirection="column" gap={3} >
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <EditNote id={noteId as string} name={getNote.title} onSave={saveTitleHandler} />
         <EditPopup />
       </Box>
 
       <Box>
-      <Box display="flex" gap={4} fontWeight="fontWeightBold" py={2} borderColor="grey.800" borderBottom="1px solid gray">
+      <Box display="flex" gap={4} fontWeight="fontWeightBold" pb={2} borderColor="grey.800" borderBottom="1px solid gray">
           <Box display="flex" gap={2} color="grey.500">
             <Image src={dateIcon} alt="date logo" />
             <Typography>Date</Typography>

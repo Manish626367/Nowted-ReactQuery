@@ -62,13 +62,13 @@ function Folder() {
 
 
   return (
-    <Box sx={{ width: "100%",color: "#94A3B8",fontWeight: 600,gap: 1,padding: "10px",}} >
-      <Box display="flex" justifyContent="space-between" px={2}>
-        <Typography variant="subtitle1" style={{  padding: "3px 0px " }} color= "rgba(255, 255, 255, 0.6)" fontWeight={550} >
+    <Box sx={{ width: "100%",color: "#94A3B8",fontWeight: 600,padding: "0px 0px",}} >
+      <Box display="flex" justifyContent="space-between" px={2.1}>
+        <Typography variant="subtitle1" style={{  padding: "3px 0px 0px 0px" }} color= "rgba(255, 255, 255, 0.6)" fontWeight={550} >
           Folders
         </Typography>
         <IconButton onClick={() => addFolderMutation.mutate()}>
-          <Image src={createFolderIcon} alt="Search icon" />
+          <Image src={createFolderIcon} alt="Search icon" height={19} width={19} />
         </IconButton>
       </Box>
 
@@ -76,7 +76,7 @@ function Folder() {
         {fetchedData.map((d: FolderDataType) => {
         const isActive = d.id === folderId
           return (
-            <Box key={d.id} sx={{ "&:hover": { backgroundColor: "#1E293B" }, backgroundColor: isActive ? "#1E293B" : "transparent", display: "flex", justifyContent: "space-between", py: 0.5, px: 2,}} >
+            <Box key={d.id} sx={{ "&:hover": { backgroundColor: "#1E293B" }, backgroundColor: isActive ? "#1E293B" : "transparent", display: "flex", justifyContent: "space-between", py: 0.6, px: 2,}} >
               <Link href={`/folder/${d.id}`} key={d.id} passHref style={{ outline: "none", textDecoration: "none" }}>
                 <Box display="flex" pt={1} gap={2} alignItems="center" sx={{ cursor: "pointer" }} >
                   {isActive ? ( 

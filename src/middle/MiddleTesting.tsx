@@ -45,8 +45,8 @@ function MiddleTesting({ type }: CombinedNotesProps) {
     <>
 
      <Typography
-        variant="h5"
-        sx={{ padding: "20px 16px 0px", fontWeight: "600" }}
+        variant="h6"
+        sx={{ padding: "0px 10px 0px", fontWeight: "600" }}
       >
         {isLoading
           ? ""
@@ -57,7 +57,7 @@ function MiddleTesting({ type }: CombinedNotesProps) {
       </Typography>
 
 
-      <Box display="flex" flexDirection="column" gap={2} py={4}>
+      <Box display="flex" flexDirection="column" gap={2} py={2}>
         {isLoading ? (
           <Box display="flex" justifyContent="center" mt={3}>
             <CircularProgress style={{color:"white"}}/>
@@ -89,7 +89,7 @@ function MiddleTesting({ type }: CombinedNotesProps) {
             )}
 
             {hasNextPage && (
-              <Box display="flex" justifyContent="center" mt={3}>
+              <Box display="flex" width="100%" justifyContent="center" mt={1}>
                 <Button
                   variant="contained"
                   color="primary"

@@ -33,7 +33,7 @@ const Cards = ({ title, text, lastdate, id, folderId, type }: CardProps)=> {
           color: "#FFFFFF",
           cursor: "pointer",
           transition: "transform 0.2s, background 0.3s",
-          padding: 1,
+          padding: 0,
           '&:hover': { 
             backgroundColor: "#2c2c2c", 
             transform: "scale(1.02)" 
@@ -41,7 +41,7 @@ const Cards = ({ title, text, lastdate, id, folderId, type }: CardProps)=> {
         }}
       >
         <CardContent>
-          <Typography variant="subtitle1" component="p" fontWeight="600">
+          <Typography variant="subtitle1" component="p" fontWeight="550">
             {title}
           </Typography>
 
@@ -50,7 +50,7 @@ const Cards = ({ title, text, lastdate, id, folderId, type }: CardProps)=> {
             alignItems="center"
             justifyContent="space-between"
             color="gray"
-            mt={2}
+            mt={1}
           >
             <Typography variant="body2">{lastdate.slice(0, 10)}</Typography>
             <Typography

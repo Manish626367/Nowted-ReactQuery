@@ -14,9 +14,9 @@ function LogoSearch() {
   const [isSearch, setIsSearch] = useState(false);
 
   return (
-    <Box display="flex" flexDirection="column" gap={3} >
+    <Box display="flex" flexDirection="column" gap={2} >
 
-      <Box display="flex" justifyContent="space-between" alignItems="center" px={3}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" px={2}>
         <Box display="flex" alignItems="center">
           <Image src={NowtedImg} alt="logo"/>
         </Box>
